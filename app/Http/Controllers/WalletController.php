@@ -66,7 +66,7 @@ class WalletController extends Controller
         }
     }
 
-   public function withdraw(Request $request)
+  public function withdraw(Request $request)
 {
     $request->validate([
         'amount' => 'required|numeric|min:100',
@@ -77,13 +77,13 @@ class WalletController extends Controller
     $wallet = Auth::user()->wallet;
     $requestedAmount = $request->amount;
 
-    if ($requestedAmount > $wallet->balance) {
-        return back()->with('error', 'Insufficient wallet balance.');
-    }
-
     $feePercentage = config('services.platform.fee_percentage', 2);
     $fee = round($requestedAmount * ($feePercentage / 100), 2);
-    $netAmount = $requestedAmount - $fee;
+    $totalDebit = $requestedAmount + $fee; // fee is on top of the withdrawal, not taken from it
+
+    if ($totalDebit > $wallet->balance) {
+        return back()->with('error', 'Insufficient wallet balance to cover withdrawal amount plus platform fee.');
+    }
 
     $channel = ($request->payment_method === 'Orange Money') ? 'cm.orange' : 'cm.mtn';
     $reference = 'WDR-' . strtoupper(Str::random(12));
@@ -94,15 +94,17 @@ class WalletController extends Controller
         'amount' => $requestedAmount,
         'reference' => $reference,
         'status' => 'pending',
-        'description' => "Withdrawal to {$request->phone_number} via {$request->payment_method} — net {$netAmount} CFA after {$feePercentage}% platform fee ({$fee} CFA)",
+        'description' => "Withdrawal of {$requestedAmount} CFA to {$request->phone_number} via {$request->payment_method} — plus {$feePercentage}% platform fee ({$fee} CFA) deducted separately",
     ]);
 
     try {
-        $wallet->debit($requestedAmount);
+        // Debit the full amount (withdrawal + fee) from the user's wallet up front
+        $wallet->debit($totalDebit);
 
+        // Send the FULL requested amount to the user — fee is not subtracted from payout
         $response = $this->notchPay->sendPayout(
             $request->phone_number,
-            $netAmount,
+            $requestedAmount,
             Auth::user()->name,
             $reference,
             $channel
@@ -128,10 +130,11 @@ class WalletController extends Controller
             }
         }
 
-        return back()->with('success', "Withdrawal initiated. You will receive {$netAmount} CFA after a {$feePercentage}% platform fee ({$fee} CFA).");
+        return back()->with('success', "Withdrawal of {$requestedAmount} CFA initiated. A separate platform fee of {$fee} CFA ({$feePercentage}%) was deducted from your wallet balance.");
 
     } catch (\Throwable $e) {
-        $wallet->credit($requestedAmount);
+        // Refund the full debited amount (withdrawal + fee) since nothing succeeded
+        $wallet->credit($totalDebit);
         $transaction->update(['status' => 'failed']);
         Log::error('Wallet withdrawal failed: ' . $e->getMessage());
         return back()->with('error', 'Withdrawal failed: ' . $e->getMessage());

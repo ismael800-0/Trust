@@ -39,7 +39,7 @@
                     </form>
                 </div>
 
-                <div class="bg-white rounded-lg border border-trust-100 p-6" x-data="{ amount: '', feePercent: {{ $feePercentage }} }">
+    <div class="bg-white rounded-lg border border-trust-100 p-6" x-data="{ amount: '', feePercent: {{ $feePercentage }} }">
     <h3 class="font-display text-lg text-trust-700 mb-1">Withdraw</h3>
     <p class="text-xs text-trust-500 mb-3">A {{ $feePercentage }}% platform fee applies to withdrawals.</p>
 
@@ -62,16 +62,16 @@
 
         <div x-show="amount > 0" x-cloak class="mb-4 p-3 bg-paper rounded-md text-sm space-y-1">
             <div class="flex justify-between text-trust-500">
-                <span>Requested amount</span>
+                <span>You will receive</span>
                 <span class="font-mono" x-text="amount.toLocaleString() + ' CFA'"></span>
             </div>
             <div class="flex justify-between text-clay-500">
                 <span>Platform fee (<span x-text="feePercent"></span>%)</span>
-                <span class="font-mono" x-text="'-' + Math.round(amount * feePercent / 100).toLocaleString() + ' CFA'"></span>
+                <span class="font-mono" x-text="'+' + Math.round(amount * feePercent / 100).toLocaleString() + ' CFA'"></span>
             </div>
             <div class="flex justify-between text-ink font-semibold border-t border-trust-100 pt-1 mt-1">
-                <span>You will receive</span>
-                <span class="font-mono" x-text="Math.round(amount - (amount * feePercent / 100)).toLocaleString() + ' CFA'"></span>
+                <span>Total deducted from wallet</span>
+                <span class="font-mono" x-text="Math.round(amount + (amount * feePercent / 100)).toLocaleString() + ' CFA'"></span>
             </div>
         </div>
 
