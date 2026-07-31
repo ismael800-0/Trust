@@ -10,4 +10,9 @@ sed -i "s/:80>/:${PORT}>/" /etc/apache2/sites-available/000-default.conf
 
 echo "Starting Apache on port ${PORT}"
 
+# DIAGNOSTIC: show which MPM modules are actually enabled
+echo "----- Enabled MPM modules -----"
+ls -la /etc/apache2/mods-enabled/ | grep -i mpm || echo "No mpm files found"
+echo "--------------------------------"
+
 exec apache2-foreground
