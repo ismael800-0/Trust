@@ -26,7 +26,6 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
         zip
 
 # Enable Apache mod_rewrite (required for Laravel's routing)
-RUN a2enmod rewrite
 RUN (a2dismod mpm_event || true) && (a2dismod mpm_worker || true) && a2enmod mpm_prefork
 
 # Point Apache's document root to Laravel's public folder
