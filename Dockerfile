@@ -1,4 +1,4 @@
-FROM php:8.2-fpm
+FROM php:8.2-apache
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -25,11 +25,22 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
         bcmath \
         zip
 
+# Enable Apache mod_rewrite (required for Laravel's routing)
+RUN a2enmod rewrite
+
+# Point Apache's document root to Laravel's public folder
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
+    && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+
+# Allow .htaccess overrides (needed for Laravel's public/.htaccess)
+RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Set working directory
-WORKDIR /var/www
+WORKDIR /var/www/html
 
 # Copy application files
 COPY . .
@@ -38,8 +49,12 @@ COPY . .
 RUN composer install --optimize-autoloader --no-dev --no-interaction
 
 # Set permissions
-RUN chown -R www-data:www-data /var/www \
-    && chmod -R 755 /var/www/storage
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html/storage /var/www/html/bootstrap/cache
 
-EXPOSE 9000
-CMD ["php-fpm"]
+# Copy and prepare the entrypoint script
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+EXPOSE 8080
+ENTRYPOINT ["docker-entrypoint.sh"]
