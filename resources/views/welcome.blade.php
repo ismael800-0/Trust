@@ -188,7 +188,7 @@ nav.primary-links a.active{color:var(--ink)}
 @media (max-width:900px){
   nav.primary-links,.header-cta a.login{display:none}
   .burger{display:flex}
-  .mobile-panel,.scrim{display:block}
+  .mobile-panel{display:block}
 }
 
 /* ============ HERO ============ */
