@@ -9,7 +9,12 @@ return new class extends Migration
 {
     public function up(): void
     {
-        // cycle_number already added from the previous partial run — skip re-adding it
+        // Add cycle_number column if it doesn't already exist (safe for both fresh and partially-migrated databases)
+        if (!Schema::hasColumn('payouts', 'cycle_number')) {
+            Schema::table('payouts', function (Blueprint $table) {
+                $table->unsignedInteger('cycle_number')->default(1)->after('round_number');
+            });
+        }
 
         // Create the NEW unique index first, so the FK stays covered
         Schema::table('payouts', function (Blueprint $table) {
