@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Providers;
+
 use App\Models\User;
 use App\Models\Wallet;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -18,10 +20,14 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-  public function boot(): void
-{
-    User::created(function (User $user) {
-        Wallet::create(['user_id' => $user->id, 'balance' => 0]);
-    });
-}
+    public function boot(): void
+    {
+        if ($this->app->environment('production')) {
+            URL::forceScheme('https');
+        }
+
+        User::created(function (User $user) {
+            Wallet::create(['user_id' => $user->id, 'balance' => 0]);
+        });
+    }
 }
