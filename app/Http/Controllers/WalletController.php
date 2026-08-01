@@ -27,6 +27,18 @@ class WalletController extends Controller
     return view('wallet.index', compact('wallet', 'transactions', 'feePercentage'));
 }
 
+public function status()
+{
+    $wallet = Auth::user()->wallet;
+    $latestTransaction = $wallet->transactions()->latest()->first();
+
+    return response()->json([
+        'balance' => $wallet->balance,
+        'latest_status' => $latestTransaction?->status,
+        'latest_id' => $latestTransaction?->id,
+    ]);
+}
+
     public function deposit(Request $request)
     {
         $request->validate([

@@ -72,6 +72,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/wallet', [WalletController::class, 'index'])->name('wallet.index');
     Route::post('/wallet/deposit', [WalletController::class, 'deposit'])->name('wallet.deposit');
     Route::post('/wallet/withdraw', [WalletController::class, 'withdraw'])->name('wallet.withdraw');
+    Route::get('/wallet/status', [WalletController::class, 'status'])->name('wallet.status');
 
     // --- Contributions ---
     Route::get('/tontines/{id}/contribute', [TontineController::class, 'contributeForm'])->name('tontines.contribute');

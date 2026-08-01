@@ -118,4 +118,33 @@
 
         </div>
     </div>
+
+    @php
+    $latestTx = $transactions->first();
+@endphp
+
+@if ($latestTx && $latestTx->status === 'pending')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const latestTransactionId = {{ $latestTx->id }};
+
+    const pollInterval = setInterval(async () => {
+        try {
+            const response = await fetch("{{ route('wallet.status') }}", {
+                headers: { 'Accept': 'application/json' }
+            });
+            const data = await response.json();
+
+            if (data.latest_id === latestTransactionId && data.latest_status !== 'pending') {
+                clearInterval(pollInterval);
+                window.location.reload();
+            }
+        } catch (error) {
+            console.error('Wallet status check failed:', error);
+        }
+    }, 3000);
+});
+</script>
+@endif
+
 </x-app-layout>
