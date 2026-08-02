@@ -727,7 +727,7 @@ footer{background:var(--ink);color:var(--paper);padding:88px 0 0;position:relati
     </div>
     <div class="reveal">
       <div class="contact-info-list">
-        <div class="item"><div class="k">Email</div><div class="v"><a href="platform@trust.cm">platform@gmail.com</a></div></div>
+        <div class="item"><div class="k">Email</div><div class="v"><a href="platformrevenue@trust.cm">platformrevenue@gmail.com</a></div></div>
         <div class="item"><div class="k">Phone</div><div class="v"><a href="tel:+237600000000">+237 671693951</a></div></div>
         <div class="item"><div class="k">Office</div><div class="v">Bepanda, Douala, Cameroon</div></div>
       </div>
@@ -764,7 +764,7 @@ footer{background:var(--ink);color:var(--paper);padding:88px 0 0;position:relati
 
       <div class="footer-col">
         <h4>Contact</h4>
-        <a href="mailto:hello@trust.cm">platform@gmail.com</a>
+        <a href="platformrevenue@gmail.com">platformrevenue@gmail.com</a>
         <a href="tel:+237600000000">+237 671693951</a>
         <p style="margin-bottom:0">Bepanda, Douala, Cameroon</p>
       </div>
