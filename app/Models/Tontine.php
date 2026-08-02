@@ -42,4 +42,26 @@ class Tontine extends Model
             ->withPivot('status', 'position_in_cycle')
             ->withTimestamps();
     }
+
+    public function contributions(): \Illuminate\Database\Eloquent\Relations\HasMany
+{
+    return $this->hasMany(Contribution::class);
+}
+
+public function currentCycle(): int
+{
+    return $this->contributions()->max('cycle_number') ?? 1;
+}
+
+public function nextDueDate(): \Carbon\Carbon
+{
+    $start = \Carbon\Carbon::parse($this->start_date);
+
+    return match ($this->frequency) {
+        'daily' => $start->copy()->addDays($this->total_rounds_completed),
+        'weekly' => $start->copy()->addWeeks($this->total_rounds_completed),
+        'monthly' => $start->copy()->addMonths($this->total_rounds_completed),
+    };
+}
+
 }
