@@ -30,16 +30,22 @@ Route::get('/', function () {
         'message' => 'required|string|max:2000',
     ]);
 
-    \Illuminate\Support\Facades\Mail::to(config('services.platform.fee_account_email'))
-        ->send(new \App\Mail\ContactFormMail(
-            $validated['name'],
-            $validated['email'],
-            $validated['message']
-        ));
+    $html = view('emails.contact-form', [
+        'senderName' => $validated['name'],
+        'senderEmail' => $validated['email'],
+        'senderMessage' => $validated['message'],
+    ])->render();
 
-    return response()->json(['success' => true]);
+    $sent = app(\App\Services\BrevoMailService::class)->send(
+        config('services.platform.fee_account_email'),
+        'Platform Admin',
+        "New Contact Form Message from {$validated['name']}",
+        $html,
+        $validated['email']
+    );
+
+    return response()->json(['success' => $sent]);
 })->name('contact.send');
-
 /*
 |--------------------------------------------------------------------------
 | Personal dashboard

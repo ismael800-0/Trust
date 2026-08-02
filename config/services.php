@@ -45,4 +45,8 @@ return [
     'fee_account_email' => env('PLATFORM_FEE_ACCOUNT_EMAIL'),
 ],
 
+'brevo' => [
+    'api_key' => env('BREVO_API_KEY'),
+],
+
 ];
