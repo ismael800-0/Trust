@@ -1,7 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
+    <div class="flex items-center justify-between">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">Browse Tontines</h2>
-    </x-slot>
+        <a href="{{ route('tontines.index') }}" class="inline-flex items-center text-sm font-medium text-blue-500 hover:text-indigo-600 transition duration-150 ease-in-out">
+            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+            </svg>
+            Back to My Tontines
+        </a>
+    </div>
+</x-slot>
 
     <div class="py-12">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
