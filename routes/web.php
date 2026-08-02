@@ -67,6 +67,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/tontine-flags/{flag}/resolve', [TontineController::class, 'resolveFlag'])->name('tontines.resolve-flag');
     Route::post('/tontines/{id}/renew', [TontineController::class, 'renew'])->name('tontines.renew');
     Route::delete('/tontines/{id}', [TontineController::class, 'destroy'])->name('tontines.destroy');
+
+    Route::post('/verify-password', function (\Illuminate\Http\Request $request) {
+    $request->validate(['password' => 'required']);
+
+    if (\Illuminate\Support\Facades\Hash::check($request->password, auth()->user()->password)) {
+        return response()->json(['success' => true]);
+    }
+
+    return response()->json(['success' => false], 422);
+    })->name('verify-password');
     
     // --- Wallet: deposit, withdraw, balance/history ---
     Route::get('/wallet', [WalletController::class, 'index'])->name('wallet.index');
