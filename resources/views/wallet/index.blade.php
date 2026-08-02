@@ -1,13 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
+    <div class="flex items-center justify-between">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">Wallet</h2>
-        <a href="{{ route('dashboard') }}" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-indigo-600 transition duration-150 ease-in-out">
-                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                </svg>
-                Back to Dashboard
-            </a>
-    </x-slot>
+        <a href="{{ route('dashboard') }}" class="inline-flex items-center text-sm font-medium text-blue-500 hover:text-indigo-600 transition duration-150 ease-in-out">
+            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+            </svg>
+            Back to Dashboard
+        </a>
+    </div>
+</x-slot>
 
     <div class="py-12">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
@@ -24,7 +26,7 @@
                 <p class="text-3xl font-bold text-indigo-600">{{ number_format($wallet->balance, 2) }} CFA</p>
             </div>
 
-            <div class="grid grid-cols-2 gap-4 mb-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                 <div class="bg-white shadow-sm sm:rounded-lg p-6">
                     <h3 class="font-semibold mb-3">Deposit</h3>
                     <form method="POST" action="{{ route('wallet.deposit') }}">
@@ -75,7 +77,7 @@
             </div>
         </div>
 
-        <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-trust-700">
+        <button type="submit" class="font-semibold w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-trust-700">
             Withdraw
         </button>
     </form>
