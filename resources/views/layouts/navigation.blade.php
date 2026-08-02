@@ -97,7 +97,7 @@
                     </button>
 
                     <div x-show="open" @click.away="open = false" x-cloak
-                         class="absolute right-0 mt-2 w-48 bg-white shadow-xl rounded-lg overflow-hidden z-50 border border-trust-100">
+                       class="fixed sm:absolute inset-x-4 sm:inset-x-auto top-16 sm:top-auto right-auto sm:right-0 mt-0 sm:mt-2 w-auto sm:w-80 bg-white shadow-xl rounded-lg overflow-hidden z-50 border border-trust-100">
                         <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-ink hover:bg-paper">Profile</a>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
