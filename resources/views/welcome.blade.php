@@ -373,6 +373,8 @@ section{padding:108px 0}
 .faq-item.open .plus::after{transform:translateX(-50%) rotate(90deg);opacity:0}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease}
 .faq-a p{color:var(--ink-soft);font-size:15px;padding-bottom:26px;max-width:600px}
+.on-ink .faq-a p{color:var(--paper-soft)}
+
 .support-cta{
   margin-top:44px;padding:28px 30px;border:1px solid var(--line);border-radius:6px;
   display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
