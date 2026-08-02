@@ -77,9 +77,9 @@
             </div>
         </div>
 
-        <button type="submit" class="font-semibold w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-trust-700">
-            Withdraw
-        </button>
+        <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-trust-700 font-bold">
+    Withdraw
+</button>
     </form>
 </div>
             </div>
