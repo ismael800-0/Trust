@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <title>{{ config('app.name', 'TRUST') }} — Tontine Management, Built on Trust</title>
 <meta name="description" content="TRUST replaces the paper ledger and the single trusted treasurer with a shared, auditable record — so your tontine runs on transparency, not memory.">
 
@@ -605,7 +606,7 @@ footer{background:var(--ink);color:var(--paper);padding:88px 0 0;position:relati
       <div class="step reveal" style="--i:0"><span class="dot"></span><span class="n">POSITION 01</span><h3>Contribute</h3><p>Members send a fixed amount by MTN or Orange Money on the group's schedule.</p></div>
       <div class="step reveal" style="--i:1"><span class="dot"></span><span class="n">POSITION 02</span><h3>Record</h3><p>Every deposit lands in an immutable ledger no single admin can quietly edit.</p></div>
       <div class="step reveal" style="--i:2"><span class="dot"></span><span class="n">POSITION 03</span><h3>Rotate</h3><p>The rotation engine decides who's next — automatically, without favorites.</p></div>
-      <div class="step reveal" style="--i:3"><span class="dot"></span><span class="n">POSITION 04</span><h3>Receive</h3><p>Funds are paid out straight to that member's mobile money account.</p></div>
+      <div class="step reveal" style="--i:3"><span class="dot"></span><span class="n">POSITION 04</span><h3>Receive</h3><p>Funds are paid out straight to that member's TRUST account.</p></div>
     </div>
   </div>
 </section>
@@ -648,7 +649,7 @@ footer{background:var(--ink);color:var(--paper);padding:88px 0 0;position:relati
       <p>So we built a system that remembers correctly, every time, whether your circle has five members or fifty — across a single neighbourhood or scattered through the diaspora.</p>
     </div>
     <ul class="fact-list reveal">
-      <li><span>Origin</span><span>Cameroon, for community savings groups &amp; diaspora circles</span></li>
+      <li><span>Origin</span><span>Cameroon, for community savings groups </span></li>
       <li><span>Governance</span><span>Three roles, one shared ledger</span></li>
       <li><span>Payments</span><span>MTN Mobile Money &amp; Orange Money</span></li>
       <li><span>Currency</span><span>XAF</span></li>
@@ -694,11 +695,11 @@ footer{background:var(--ink);color:var(--paper);padding:88px 0 0;position:relati
     <div class="reveal">
       <span class="eyebrow">Location</span>
       <h2 style="margin-top:16px;font-size:clamp(26px,3.2vw,34px)">Where we operate</h2>
-      <p style="color:var(--ink-soft);margin-top:14px">Serving community savings groups across Cameroon and the diaspora — anywhere MTN Mobile Money or Orange Money can reach.</p>
+      <p style="color:var(--ink-soft);margin-top:14px">Serving community savings groups across Cameroon anywhere MTN Mobile Money or Orange Money can reach.</p>
       <div class="loc-card">
         <div class="row"><span>Office</span><span>Douala, Littoral, Cameroon</span></div>
         <div class="row"><span>Coverage</span><span>All ten regions, via mobile money</span></div>
-        <div class="row"><span>Hours</span><span>Mon – Sat, 8:00 – 18:00 WAT</span></div>
+        <div class="row"><span>Hours</span><span>Mon – Sat, 8:00 – 18:00H</span></div>
       </div>
     </div>
   </div>
@@ -724,9 +725,9 @@ footer{background:var(--ink);color:var(--paper);padding:88px 0 0;position:relati
     </div>
     <div class="reveal">
       <div class="contact-info-list">
-        <div class="item"><div class="k">Email</div><div class="v"><a href="mailto:hello@trust.cm">hello@trust.cm</a></div></div>
-        <div class="item"><div class="k">Phone</div><div class="v"><a href="tel:+237600000000">+237 6XX XXX XXX</a></div></div>
-        <div class="item"><div class="k">Office</div><div class="v">Bonanjo, Douala, Cameroon</div></div>
+        <div class="item"><div class="k">Email</div><div class="v"><a href="platform@trust.cm">platform@gmail.com</a></div></div>
+        <div class="item"><div class="k">Phone</div><div class="v"><a href="tel:+237600000000">+237 671693951</a></div></div>
+        <div class="item"><div class="k">Office</div><div class="v">Bepanda, Douala, Cameroon</div></div>
       </div>
     </div>
   </div>
@@ -761,9 +762,9 @@ footer{background:var(--ink);color:var(--paper);padding:88px 0 0;position:relati
 
       <div class="footer-col">
         <h4>Contact</h4>
-        <a href="mailto:hello@trust.cm">hello@trust.cm</a>
-        <a href="tel:+237600000000">+237 6XX XXX XXX</a>
-        <p style="margin-bottom:0">Bonanjo, Douala, Cameroon</p>
+        <a href="mailto:hello@trust.cm">platform@gmail.com</a>
+        <a href="tel:+237600000000">+237 671693951</a>
+        <p style="margin-bottom:0">Bepanda, Douala, Cameroon</p>
       </div>
 
       <div class="footer-col">
@@ -861,13 +862,46 @@ document.querySelectorAll('.faq-item').forEach(item => {
   });
 });
 
-// ---------- contact form (static demo) ----------
+
+// ---------- contact form ----------
 const form = document.getElementById('contactForm');
 const success = document.getElementById('formSuccess');
-form.addEventListener('submit', (e) => {
+const submitBtn = form.querySelector('button[type="submit"]');
+
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
-  success.classList.add('show');
-  form.querySelectorAll('input,textarea').forEach(f => f.value = '');
+
+  const name = document.getElementById('cf-name').value;
+  const email = document.getElementById('cf-email').value;
+  const message = document.getElementById('cf-msg').value;
+
+  submitBtn.disabled = true;
+  const originalText = submitBtn.textContent;
+  submitBtn.textContent = 'Sending...';
+
+  try {
+    const response = await fetch("{{ route('contact.send') }}", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({ name, email, message }),
+    });
+
+    if (response.ok) {
+      success.classList.add('show');
+      form.querySelectorAll('input,textarea').forEach(f => f.value = '');
+    } else {
+      alert('Something went wrong. Please try again.');
+    }
+  } catch (err) {
+    alert('Something went wrong. Please try again.');
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = originalText;
+  }
 });
 </script>
 
