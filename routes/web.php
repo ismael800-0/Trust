@@ -22,6 +22,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// route for contact the super admin for support
+    Route::post('/contact', function (\Illuminate\Http\Request $request) {
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'message' => 'required|string|max:2000',
+    ]);
+
+    \Illuminate\Support\Facades\Mail::to(config('services.platform.fee_account_email'))
+        ->send(new \App\Mail\ContactFormMail(
+            $validated['name'],
+            $validated['email'],
+            $validated['message']
+        ));
+
+    return response()->json(['success' => true]);
+})->name('contact.send');
+
 /*
 |--------------------------------------------------------------------------
 | Personal dashboard
@@ -77,24 +95,6 @@ Route::middleware('auth')->group(function () {
 
     return response()->json(['success' => false], 422);
     })->name('verify-password');
-
-    // route for contact the super admin for support
-    Route::post('/contact', function (\Illuminate\Http\Request $request) {
-    $validated = $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|email|max:255',
-        'message' => 'required|string|max:2000',
-    ]);
-
-    \Illuminate\Support\Facades\Mail::to(config('services.platform.fee_account_email'))
-        ->send(new \App\Mail\ContactFormMail(
-            $validated['name'],
-            $validated['email'],
-            $validated['message']
-        ));
-
-    return response()->json(['success' => true]);
-})->name('contact.send');
     
     // --- Wallet: deposit, withdraw, balance/history ---
     Route::get('/wallet', [WalletController::class, 'index'])->name('wallet.index');
