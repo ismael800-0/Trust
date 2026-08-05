@@ -107,12 +107,22 @@ return [
     | You may wish for all emails sent by your application to be sent from
     | the same address. Here you may specify a name and address that is
     | used globally for all emails that are sent by your application.
-    |
     */
+  'mailers' => [
 
-    'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
+    'brevo+api' => [
+        'transport' => 'brevo+api',
+        'key' => env('BREVO_API_KEY'),
     ],
 
-];
+    // keep your other mailers too — smtp, log, etc.
+    'smtp' => [
+        'transport' => 'smtp',
+        // ...
+    ],
+
+    'log' => [
+        'transport' => 'log',
+    ],
+
+],
