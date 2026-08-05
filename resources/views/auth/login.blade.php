@@ -148,15 +148,6 @@
                 });
             });
             
-            // Optional: Auto-toggle when pressing Ctrl+Enter on password fields
-            document.querySelectorAll('input[type="password"]').forEach(input => {
-                input.addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter' && e.ctrlKey) {
-                        const button = this.parentElement.querySelector('.toggle-password');
-                        if (button) button.click();
-                    }
-                });
-            });
         });
     </script>
     @endpush
