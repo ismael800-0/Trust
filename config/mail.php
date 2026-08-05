@@ -99,31 +99,30 @@ return [
 
     ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Global "From" Address
-    |--------------------------------------------------------------------------
-    |
-    | You may wish for all emails sent by your application to be sent from
-    | the same address. Here you may specify a name and address that is
-    | used globally for all emails that are sent by your application.
-    */
-  'mailers' => [
+   'mailers' => [
+
+    'smtp' => [
+        'transport' => 'smtp',
+        'scheme' => env('MAIL_SCHEME'),
+        'url' => env('MAIL_URL'),
+        'host' => env('MAIL_HOST', '127.0.0.1'),
+        'port' => env('MAIL_PORT', 2525),
+        'username' => env('MAIL_USERNAME'),
+        'password' => env('MAIL_PASSWORD'),
+        'timeout' => null,
+    ],
 
     'brevo+api' => [
         'transport' => 'brevo+api',
         'key' => env('BREVO_API_KEY'),
     ],
 
-    // keep your other mailers too — smtp, log, etc.
-    'smtp' => [
-        'transport' => 'smtp',
-        // ...
-    ],
-
     'log' => [
         'transport' => 'log',
+        'channel' => env('MAIL_LOG_CHANNEL'),
     ],
+
+    // ... any other default mailers Laravel scaffolded (failover, roundrobin, etc.)
 
 ],
 
