@@ -493,9 +493,7 @@ footer{background:var(--ink);color:var(--paper);padding:88px 0 0;position:relati
 <!-- ============ HEADER ============ -->
 <header id="siteHeader">
   <div class="wrap nav-row">
-    <a href="#home" class="brand">
-      <img src="{{ asset('images/trust-logo.png') }}" alt="TRUST — Community. Savings. Unity." class="brand-logo-img">
-    </a>
+    <a href="#home" class="brand">TRUST</a>
 
     <nav class="primary-links" aria-label="Primary">
       <a href="#home" class="active">Home</a>
@@ -742,9 +740,7 @@ footer{background:var(--ink);color:var(--paper);padding:88px 0 0;position:relati
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="#home" class="brand">
-          <img src="{{ asset('images/trust-logo.png') }}" alt="TRUST — Community. Savings. Unity." class="brand-logo-img">
-        </a>
+        <a href="#home" class="brand">TRUST</a>
         <p>Transparent Rotational Universal Savings &amp; Trust — a shared ledger for the circles that already trust each other.</p>
         <div class="social-row">
   <a href="https://wa.me/+237671693951" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
