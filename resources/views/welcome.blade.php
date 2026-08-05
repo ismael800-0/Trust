@@ -728,7 +728,7 @@ footer{background:var(--ink);color:var(--paper);padding:88px 0 0;position:relati
     <div class="reveal">
       <div class="contact-info-list">
         <div class="item"><div class="k">Email</div><div class="v"><a href="platformrevenue@trust.cm">platformrevenue@gmail.com</a></div></div>
-        <div class="item"><div class="k">Phone</div><div class="v"><a href="tel:+237600000000">+237 671693951</a></div></div>
+        <div class="item"><div class="k">Phone</div><div class="v"><a href="tel:+237671693951">+237 671693951</a></div></div>
         <div class="item"><div class="k">Office</div><div class="v">Bepanda, Douala, Cameroon</div></div>
       </div>
     </div>
@@ -747,10 +747,16 @@ footer{background:var(--ink);color:var(--paper);padding:88px 0 0;position:relati
         </a>
         <p>Transparent Rotational Universal Savings &amp; Trust — a shared ledger for the circles that already trust each other.</p>
         <div class="social-row">
-          <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.7.9-.3.2-.5.1a6.6 6.6 0 01-1.9-1.2A7.2 7.2 0 0110 11.3c-.1-.2 0-.3.1-.4l.4-.4a1.7 1.7 0 00.2-.4.4.4 0 000-.4c-.1-.1-.5-1.3-.7-1.7s-.4-.4-.5-.4h-.5a.9.9 0 00-.6.3 2.7 2.7 0 00-.8 2 4.7 4.7 0 001 2.5 10.6 10.6 0 004.1 3.6c1.5.6 1.5.4 1.8.4a1.6 1.6 0 001-.7 1.3 1.3 0 000-1c-.1-.1-.2-.2-.4-.3z"/></svg></a>
-          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5H16l.4-3H13.5V8.4c0-.9.2-1.5 1.5-1.5H16.5V4.2A20 20 0 0014.2 4C11.9 4 10.4 5.3 10.4 7.9v2.6H8v3h2.4V21h3.1z"/></svg></a>
-          <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 3l7.4 9.8L3.4 21H6l5.9-6.6L16.8 21H21l-7.8-10.3L20.6 3H18l-5.5 6.1L8 3H3z"/></svg></a>
-        </div>
+  <a href="https://wa.me/+237671693951" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.7.9-.3.2-.5.1a6.6 6.6 0 01-1.9-1.2A7.2 7.2 0 0110 11.3c-.1-.2 0-.3.1-.4l.4-.4a1.7 1.7 0 00.2-.4.4.4 0 000-.4c-.1-.1-.5-1.3-.7-1.7s-.4-.4-.5-.4h-.5a.9.9 0 00-.6.3 2.7 2.7 0 00-.8 2 4.7 4.7 0 001 2.5 10.6 10.6 0 004.1 3.6c1.5.6 1.5.4 1.8.4a1.6 1.6 0 001-.7 1.3 1.3 0 000-1c-.1-.1-.2-.2-.4-.3z"/></svg>
+  </a>
+  <a href="https://facebook.com/Dembele_joel" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5H16l.4-3H13.5V8.4c0-.9.2-1.5 1.5-1.5H16.5V4.2A20 20 0 0014.2 4C11.9 4 10.4 5.3 10.4 7.9v2.6H8v3h2.4V21h3.1z"/></svg>
+  </a>
+  <a href="https://x.com/YOUR_HANDLE" aria-label="X" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 3l7.4 9.8L3.4 21H6l5.9-6.6L16.8 21H21l-7.8-10.3L20.6 3H18l-5.5 6.1L8 3H3z"/></svg>
+  </a>
+</div>
       </div>
 
       <div class="footer-col">
@@ -781,8 +787,8 @@ footer{background:var(--ink);color:var(--paper);padding:88px 0 0;position:relati
     </div>
 
     <div class="footer-bottom">
-      <span>© 2026 TRUST. Built for community savings, not against it.</span>
-      <span class="ledger"><span class="dot"></span> LEDGER STATUS · LIVE · REF TR-0001</span>
+      <span>© 2026 TRUST. Built for community savings</span>
+      <span class="ledger"><span class="dot"></span> LEDGER STATUS · LIVE ·</span>
     </div>
   </div>
 </footer>
