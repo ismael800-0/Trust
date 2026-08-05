@@ -1,30 +1,16 @@
 <?php
 
 namespace App\Console\Commands;
-namespace App\Console\Commands;
 
 use App\Models\User;
 use Illuminate\Console\Command;
+
 class MakeAdmin extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'app:make-admin';
+    protected $signature = 'user:make-admin {email}';
+    protected $description = 'Promote a user to super_admin by email';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Command description';
-
-    /**
-     * Execute the console command.
-     */
-   public function handle()
+    public function handle()
     {
         $user = User::where('email', $this->argument('email'))->first();
 
@@ -40,4 +26,3 @@ class MakeAdmin extends Command
         return 0;
     }
 }
-
